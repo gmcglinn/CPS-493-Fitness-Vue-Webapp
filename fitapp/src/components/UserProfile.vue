@@ -1,52 +1,71 @@
 <template>
   <div class="user-profile">
-    <div class="user-profile__user-panel">
+    
+    
+    
+    <div class="user-profile__user-panel" v-if="isLogged">
         <h1 class="user-profile__username">{{ user.username }}</h1>
         <div class="user-profile__admin-badge" v-if="user.isAdmin">
-            Admin
+            Admin User
         </div>
-        <div class="user-profile__follower-count">
-            <strong>Followers: </strong> {{ followers }}
+        <div class="user-profile__admin-badge" v-else>
+            Standard User
         </div>
     </div>
+    <div class="user-profile__user-panel" v-else>
+        <h1 class="user-profile__username"> Login </h1>
+        <input type="text" name="username" v-model="input.username" placeholder="Username" />
+        <input type="password" name="password" v-model="input.password" placeholder="Password" />
+        <button type="button" v-on:click="login()">Login</button>
+    </div>
+
+    <div class="user-profile__cards" v-for="cards in user.cards" :key="cards.id">
+      {{cards.user}}
+    </div>
   </div>
+
 </template>
 
 <script>
 export default {
     data(){
     return {
-      followers: 0,
+      isLogged: false,
       user: {
         id: 1,
-        username: 'GeoffMcGlinn',
-        firstname: 'Geoffrey',
-        lastname: 'McGlinn',
-        email: 'mcglinng1@hawkmail.newpaltz.edu',
-        isAdmin: true
+        username: 'GeoffM',
+        password: 'password',
+        isAdmin: true,
+        isLogged: true,
+        cards:[
+          {id: 1, user:'MosheP', type:'Upper', exercise:[
+            {id: 1, exercise: 'Overhead Press', sets: 2, reps: 8},
+            {id: 2, exercise: 'Bench Press', sets: 3, reps: 4}
+          ]},
+          {id: 1, user:'JohnS', type:'Cardio', exercise:[
+            {id: 1, exercise: 'Jogging', time: 120},
+          ]}
+        ]
+      },
+      input: {
+        username: "",
+        password: ""
       }
-    }
-  },
-  watch: {
-    followers(newFollowerCount, oldFollowerCount){
-      if(oldFollowerCount < newFollowerCount){
-        console.log(`${this.user.username} has gained a follower`)
-      }
-    }
-  },
-  computed: {
-    fullName(){
-      return `${this.user.firstname} ${this.user.lastname}`;
     }
   },
   methods: {
-    followUser(){
-      this.followers++
-    }
-  },
-  mounted() {
-    this.followUser();
-  }
+     login() {
+       if(this.input.username != "" && this.input.password != "") {
+         if(this.input.username == this.user.username && this.input.password == this.user.password) {
+           this.isLogged = true;
+           } else {
+             console.log("The username and / or password is incorrect");
+             }
+             } else {
+               console.log("A username and password must be present");
+            }
+      },
+}
 }
 </script>
 
@@ -74,6 +93,7 @@ export default {
     padding: 0 10px;
     font-weight: bold;
 }
+
 h1{
     margin: 0;
 }
