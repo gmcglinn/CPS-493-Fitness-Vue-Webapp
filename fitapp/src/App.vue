@@ -1,15 +1,24 @@
 <template>
-  <div id="app">
-    <UserProfile/>
+<div>
+  <div style="float:left; padding:150px">
+    <Feed/>
   </div>
+  <div style="float:right; padding:150px">
+    <LoginBox/>
+  </div>
+
+
+</div>
 </template>
 
 <script>
-import UserProfile from "./components/UserProfile"
+import LoginBox from "./components/LoginBox"
+import Feed from "./components/Feed"
+
 
 export default {
   name: 'App',
-  components: { UserProfile }
+  components: { LoginBox, Feed }
 }
 </script>
 
