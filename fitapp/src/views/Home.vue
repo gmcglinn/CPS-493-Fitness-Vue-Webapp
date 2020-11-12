@@ -1,0 +1,21 @@
+<template>
+  <div>
+    <div>
+      <h4>
+        Welcome to the cat facts page
+      </h4>
+      <div>🐾</div>
+      <span>
+        Use the nav menu above to find new facts!
+      </span>
+    </div>
+  </div>
+</template>
+
+<script>
+
+</script>
+
+<style>
+
+</style>
