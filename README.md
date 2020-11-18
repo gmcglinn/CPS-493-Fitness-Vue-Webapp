@@ -1,4 +1,4 @@
-# fitapp
+# fitapp-fall2020
 
 ## Project setup
 ```
