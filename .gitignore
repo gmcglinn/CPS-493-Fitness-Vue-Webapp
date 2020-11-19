@@ -7,7 +7,7 @@ node_modules
 .env.local
 .env.*.local
 .env
-./server/.env
+./server/src/.env
 ./client/.env
 
 # Log files
