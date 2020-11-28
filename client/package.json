@@ -9,12 +9,15 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "bulma": "^0.9.1",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "mysql": "^2.18.1",
     "node": "^15.2.1",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-rc.3"
+    "vue-cookie-next": "^1.0.3",
+    "vue-router": "^4.0.0-rc.3",
+    "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
