@@ -4,7 +4,8 @@ const store = createStore({
   state () {
     return {
       user: {},
-      isLogged: false
+      isLogged: false,
+      isAdmin: false
     }
   },
   mutations: {

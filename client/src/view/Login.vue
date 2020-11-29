@@ -41,12 +41,12 @@ export default{
     methods: {
         async loginUser() {
             let response = await axios.post('http://localhost:8081/login', {username: this.username, password: this.password })
-
             this.$store.commit('login',response.data[0])
             console.log(response.data);
             console.log(this.$store.state.isLogged);
             this.$cookie.setCookie('isLogged', true)
             this.$cookie.setCookie('user', response.data[0])
+            this.$cookie.setCookie('isAdmin', response.data[0].Administrator)
             this.$router.push('/')
             }
     

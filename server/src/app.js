@@ -1,7 +1,6 @@
 console.log("api is running")
 const express = require('express')
 const cors = require('cors')
-const morgan = require('morgan')
 const app = express()
 
 
@@ -21,18 +20,10 @@ connection.connect()
 
 module.exports = connection;
 
-
-
-app.use(morgan('combined'))
 app.use(express.json());
 app.use(cors())
 
-app.post('/register', (req, res) => {
-    /*
-    INSERT INTO table_name (column1, column2, column3, ...)
-    VALUES (value1, value2, value3, ...);
-    */
-   
+app.post('/register', (req, res) => {   
     connection.query(`INSERT INTO UserProfile (EmailAddress, Password, Username)
     VALUES ('${req.body.email}', '${req.body.password}', '${req.body.username}')`, function (error, results, fields) {
     if (error) throw error;
@@ -41,7 +32,33 @@ app.post('/register', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    connection.query(`SELECT UserID, Username FROM UserProfile WHERE Username = '${req.body.username}' AND Password='${req.body.password}'`, function (error, results, fields) {
+    connection.query(`SELECT UserID, Username, Administrator FROM UserProfile WHERE Username = '${req.body.username}' AND Password='${req.body.password}'`, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+    });
+})
+
+app.get('/getLatest', (req, res) => {
+    connection.query(`SELECT PostID FROM Post ORDER BY CreatedTime DESC LIMIT 10`, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+    });
+})
+
+app.post('/getPost', (req, res) => {
+    connection.query(`SELECT * FROM Post WHERE PostID = '${req.body.ID}'`, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+    });
+})
+app.post('/getUser', (req, res) => {
+    connection.query(`SELECT * FROM UserProfile WHERE UserID = '${req.body.UserID}'`, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+    });
+})
+app.post('/getPostCreator', (req, res) => {
+    connection.query(`SELECT Username FROM UserProfile WHERE UserID = '${req.body.ID}'`, function (error, results, fields) {
     if (error) throw error;
     res.send(results)
     });

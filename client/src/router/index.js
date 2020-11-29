@@ -3,6 +3,8 @@ import Home from '../view/Home.vue'
 import Register from '../view/Register.vue'
 import Login from '../view/Login.vue'
 import store from '../store'
+import Settings from '../view/Settings.vue'
+
 const routes = [
     {
         path: '/',
@@ -27,6 +29,11 @@ const routes = [
             if(store.state.isLogged) next({name: 'Home'})
             next()
         }
+    },
+    {
+        path: '/settings',
+        name: 'Settings',
+        component: Settings
     }
 ]
 
