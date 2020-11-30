@@ -6,15 +6,13 @@
         <div class="media-left">
         </div>
         <div class="media-content">
-            <p class="title is-4">{{SingleUser.Username}}</p>
-            <p class="subtitle is-6">Name: {{SingleUser.FirstName}} {{SingleUser.LastName}}</p>
-            <p class="subtitle is-6">Admin: {{SingleUser.Administrator}}</p>
+            <p class="title is-4">{{SingleExercise.Name}}</p>
+            <p class="subtitle is-6">Cardio: {{SingleExercise.isCardio}}</p>
         </div>
         </div>
     </div>
     <footer class="card-footer">
-    <a @click="removeUser"  class="card-footer-item">Remove User</a>
-    <a @click="toggleAdmin" class="card-footer-item">Toggle Admin</a>
+    <a @click="removeExercise"  class="card-footer-item">Remove Exercise</a>
   </footer>
     </div>
 </template>
@@ -24,32 +22,21 @@ const axios = require('axios');
 //const moment = require('moment');
 export default{
     name: 'ExerciseCard',
-    props : ['UserID'],
+    props : ['ExerciseID'],
     data(){
         return{
-           SingleUser: axios.post('http://localhost:8081/getUser', {ID: this.UserID.UserID}).then( response => {
-            this.SingleUser = response.data[0];
+           SingleExercise: axios.post('http://localhost:8081/getExercise', {ID: this.ExerciseID.UniqueID}).then( response => {
+            this.SingleExercise = response.data[0];
             console.log(response.data);
           }),
         }
     },
     methods: {
-        toggleAdmin(){
-            console.log(this.SingleUser.Administrator)
-          if(this.SingleUser.Administrator==1){
-              axios.post('http://localhost:8081/toggleAdmin', { 
-                IDUser: this.SingleUser.UserID, x:0})
-          }
-          else {
-            axios.post('http://localhost:8081/toggleAdmin', { 
-                IDUser: this.SingleUser.UserID, x:1})
-          }
-      },
-      removeUser(){
-           axios.post('http://localhost:8081/removeUser', { 
-                IDUser: this.SingleUser.UserID})
-            this.$forceUpdate(); //holding off on for now, is not updating the page real time when removal is done leaving the card on the screen (same for upgrading to admin)
-      }
+       removeExercise(){
+            axios.post('http://localhost:8081/removeExercise', { 
+                 ID: this.SingleExercise.UniqueID})
+             this.$forceUpdate(); //holding off on for now, is not updating the page real time when removal is done leaving the card on the screen
+       }
     }
 }
 </script>

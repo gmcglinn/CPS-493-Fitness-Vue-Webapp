@@ -129,14 +129,20 @@ app.post('/addExercise', (req, res) => {
     });
 })
 app.post('/removeExercise', (req, res) => {
-    connection.query(`INSERT INTO Exercises (Name, isCardio)
-    VALUES ('${req.body.newName}', '${req.body.isCardio}')`, function (error, results, fields) {
+    if(req.body.IDUser==null) req.body.IDUser = 0;
+    connection.query(`DELETE FROM Exercises WHERE UniqueID = '${req.body.ID}'`, function (error, results, fields) {
         if (error) throw error;
         res.send(results)
     });
 })
-app.get('/getExercise', (req, res) => {
-    connection.query(`SELECT * FROM Exercises'`, function (error, results, fields) {
+app.get('/getAllExercises', (req, res) => {
+    connection.query(`SELECT UniqueID FROM Exercises`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/getExercise', (req, res) => {
+    connection.query(`SELECT * FROM Exercises WHERE UniqueID = '${req.body.ID}'`, function (error, results, fields) {
         if (error) throw error;
         res.send(results)
     });

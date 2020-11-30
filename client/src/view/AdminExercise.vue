@@ -1,30 +1,5 @@
 <template>
 <div id="registerStyle">
-    
-    <h1>Remove Exercise</h1>
-    <form>
-        <div v-for="Name in currentExercises" :key="Name.id">
-
-        <label for="exerciseR">Choose an exercise:</label>
-            <select name="exerciseR" id="exerciseR">
-                <optgroup label="Weightlifting">
-                <option value="volvo">1</option>
-                <option value="saab">1</option>
-                
-            </optgroup>
-            <optgroup label="Cardio">
-                <option value="mercedes">2</option>
-                <option value="audi">2</option>
-            </optgroup>
-            </select>
-        </div>
-
-        <div class="control">
-            <button @click.prevent="removeExercise" class="button is-primary">Remove</button>
-        </div>
-        <br><hr>
-
-    </form>
     <h2>Add Exercise</h2>
     <form>
 
@@ -49,35 +24,45 @@
 
 
     </form>
+
+    <h1>Edit Exercise</h1>
+        
+      <!-- Add the feed here v-for every ID -->
+      <div v-for="UniqueID in currentExercises" :key="UniqueID.UniqueID">
+        
+        <ExerciseCard :ExerciseID="UniqueID"></ExerciseCard>
+      </div>
+        
     
 </div>
 </template>
 <script>
  const axios = require('axios');
+ import ExerciseCard from '../components/ExerciseCard'
 export default{
+    
+    components:{
+        ExerciseCard
+    },
     data(){
         return{
            exerciseR:null,
            newName:null,
            isCardio:null,
            currentExercises: 
-                axios.get('http://localhost:8081/getExercises').then( response => {
+                axios.get('http://localhost:8081/getAllExercises').then( response => {
                   this.currentExercises = response.data;
+                  console.log(response.data)
               }),
+            ExerciseIDs: axios.get('http://localhost:8081/getAllExercises').then( response => {
+            //console.log(response.data);
+            this.ExerciseIDs = response.data;
+            //console.log(this.PostIDs)
+          })
 
         }
     },
     methods: {
-        async removeExercise() {
-            await axios.post('http://localhost:8081/removeExercise', { 
-                exerciseR:this.exerciseR })
-                .then(function (response) {
-                    console.log(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
-        },
         async addExercise() {
             await axios.post('http://localhost:8081/addExercise', { 
                 newName:this.newName, isCardio:this.isCardio })
