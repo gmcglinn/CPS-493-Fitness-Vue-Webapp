@@ -47,9 +47,6 @@ app.get('/getLatest', (req, res) => {
 
 app.post('/getLatestUser', (req, res) => {
     console.log(req.body.IDUser);
-    var result = [];
-    for(var i in req.body.IDUser)
-        result.push([i, json_data [i]]);
     temp = result.join(" OR CreatorID = ");
     connection.query(`SELECT PostID FROM Post WHERE CreatorID = '${temp}' ORDER BY CreatedTime DESC LIMIT 10`, function (error, results, fields) {
         if (error) throw error;
@@ -162,7 +159,19 @@ app.post('/toggleAdmin', (req, res) => {
         res.send(results)
     });
 })
-
+app.get('/getAllExercisesFull', (req, res) => {
+    connection.query(`SELECT * FROM Exercises`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/postPost', (req, res) => {
+    connection.query(`INSERT INTO Post (CreatorID, Location, Title, PostContent, CreatorUsername)
+    VALUES ('${req.body.CreatorID}', '${req.body.Location}', '${req.body.Title}', '${req.body.PostContent}', '${req.body.CreatorUsername}')`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
 
 
 
