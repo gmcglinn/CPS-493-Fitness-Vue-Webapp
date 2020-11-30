@@ -18,8 +18,12 @@
         Home
       </a>
 
-      <a class="navbar-item">
+      <a @click="this.$router.push('/search')" class="navbar-item">
         Search
+      </a>
+
+      <a v-if='this.$store.state.isLogged' @click="this.$router.push('/myFeed')" class="navbar-item">
+        My Feed
       </a>
 
       <div class="navbar-item has-dropdown is-hoverable">
@@ -28,18 +32,21 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a v-if='this.$store.state.isLogged' class="navbar-item">
+          <a v-if='this.$store.state.isLogged' @click="this.$router.push('/likedPosts')" class="navbar-item">
             My Liked Posts
           </a>
-          <a v-if='this.$store.state.isLogged' class="navbar-item">
+          <a v-if='this.$store.state.isLogged'  @click="this.$router.push('/CreateWorkout')" class="navbar-item">
             Create Workout
           </a>
           <a v-if='this.$store.state.isLogged' @click="this.$router.push('/Settings')" class="navbar-item">
             Settings
           </a>
           <hr class="navbar-divider">
-          <a v-if="this.$cookie.getCookie('isAdmin')==1" class="navbar-item">
-            Admin
+          <a v-if="this.$cookie.getCookie('isAdmin')==1" @click="this.$router.push('/AdminExercise')" class="navbar-item">
+            Edit Exercises
+          </a>
+          <a v-if="this.$cookie.getCookie('isAdmin')==1" @click="this.$router.push('/AdminUsers')" class="navbar-item">
+            Admin Users
           </a>
         </div>
       </div>

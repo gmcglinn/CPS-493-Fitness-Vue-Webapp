@@ -45,6 +45,30 @@ app.get('/getLatest', (req, res) => {
     });
 })
 
+app.post('/getLatestUser', (req, res) => {
+    console.log(req.body.IDUser);
+    var result = [];
+    for(var i in req.body.IDUser)
+        result.push([i, json_data [i]]);
+    temp = result.join(" OR CreatorID = ");
+    connection.query(`SELECT PostID FROM Post WHERE CreatorID = '${temp}' ORDER BY CreatedTime DESC LIMIT 10`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+    
+})
+app.post('/getUser', (req, res) => {
+    connection.query(`SELECT * FROM UserProfile WHERE UserID = '${req.body.ID}'`, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+    });
+})
+app.get('/getAllUsers', (req, res) => {
+    connection.query(`SELECT UserID FROM UserProfile`, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+    });
+})
 app.post('/getPost', (req, res) => {
     connection.query(`SELECT * FROM Post WHERE PostID = '${req.body.ID}'`, function (error, results, fields) {
     if (error) throw error;
@@ -57,12 +81,83 @@ app.post('/getUser', (req, res) => {
     res.send(results)
     });
 })
-app.post('/getPostCreator', (req, res) => {
-    connection.query(`SELECT Username FROM UserProfile WHERE UserID = '${req.body.ID}'`, function (error, results, fields) {
+app.post('/getLikedStatus', (req, res) => {
+    connection.query(`SELECT * FROM LikedPosts WHERE PostID = '${req.body.IDPost}' AND UserID = '${req.body.IDUser}'`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+
+app.post('/getAllLiked', (req, res) => {
+    connection.query(`SELECT PostID FROM LikedPosts WHERE UserID = '${req.body.IDUser}'`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/likePost', (req, res) => {
+    connection.query(`INSERT INTO LikedPosts (PostID, UserID)
+    VALUES ('${req.body.IDPost}', '${req.body.IDUser}')`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/unlikePost', (req, res) => {
+    if(req.body.IDUser==null) req.body.IDUser = 0;
+    connection.query(`DELETE FROM LikedPosts WHERE PostID = '${req.body.IDPost}' AND UserID = '${req.body.IDUser}'`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/searchPosts', (req, res) => {
+    connection.query(`SELECT * FROM Post WHERE Title LIKE '%${req.body.field}%' OR CreatorUsername LIKE '%${req.body.field}%'`, function (error, results, fields) {
     if (error) throw error;
     res.send(results)
     });
 })
+
+app.post('/getFollowStatus', (req, res) => {
+    connection.query(`SELECT Followed FROM UserRelation WHERE Follower = '${req.body.IDUser}'`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/addExercise', (req, res) => {
+    connection.query(`INSERT INTO Exercises (Name, isCardio)
+    VALUES ('${req.body.newName}', '${req.body.isCardio}')`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/removeExercise', (req, res) => {
+    connection.query(`INSERT INTO Exercises (Name, isCardio)
+    VALUES ('${req.body.newName}', '${req.body.isCardio}')`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.get('/getExercise', (req, res) => {
+    connection.query(`SELECT * FROM Exercises'`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+
+app.post('/removeUser', (req, res) => {
+    if(req.body.IDUser==null) req.body.IDUser = 0;
+    connection.query(`DELETE FROM UserProfile WHERE UserID = '${req.body.IDUser}'`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+app.post('/toggleAdmin', (req, res) => {
+    console.log(req.body.x)
+    connection.query(`UPDATE UserProfile SET Administrator = '${req.body.x}' WHERE UserID = '${req.body.IDUser}'`, function (error, results, fields) {
+        if (error) throw error;
+        res.send(results)
+    });
+})
+
+
 
 
 app.listen(process.env.PORT || 8081)

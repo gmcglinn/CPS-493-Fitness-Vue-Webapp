@@ -22,10 +22,10 @@
         <p>{{SinglePost.Location}}</p>
         </div>
     </div>
-    <footer class="card-footer">
-    <a @click="likePost" class="card-footer-item">${{liked}}</a>
-    <a href="#" class="card-footer-item">Share</a>
-    <a href="#" class="card-footer-item">Follow Username</a>
+    <footer v-if='this.$store.state.isLogged' class="card-footer">
+    <a @click="likePost"  class="card-footer-item">{{liked}}</a>
+    <a @click="copyPostLink" class="card-footer-item">Share</a>
+    <a href="#" class="card-footer-item">Follow {{SinglePost.CreatorUsername}}</a>
   </footer>
     </div>
 </template>
@@ -38,18 +38,37 @@ export default{
     props : ['PostID'],
     data(){
         return{
-           liked:false,
            Post: this.PostID,
            SinglePost: axios.post('http://localhost:8081/getPost', {ID: this.PostID.PostID}).then( response => {
-            console.log(this.PostID.PostID)
-            console.log(response.data);
             this.SinglePost = response.data[0];
-          })
+          }),
+             liked: 
+                axios.post('http://localhost:8081/getLikedStatus', {IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID}).then( response => {
+                  if(response.data[0]==null) this.liked = "♡";
+                  else this.liked = "❤️";
+              }),
         }
     },
     methods: {
         likePost(){
-          this.liked=true;
+        if(this.$store.state.isLogged){
+          if(this.liked=="♡") {
+              this.liked = "❤️️";
+              axios.post('http://localhost:8081/likePost', { 
+                IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID })
+          }
+          else {
+            this.liked = "♡"
+            axios.post('http://localhost:8081/unlikePost', { 
+                IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID })
+          }}
+      },
+      copyPostLink(){
+           var copyText = "http://localhost:8080/"+ this.SinglePost.PostID;
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+            document.execCommand("copy");
+            alert("Copied post link");
       }
     }
 }

@@ -1,5 +1,16 @@
 <template>
   <div>
+      <div class="field">
+        <label class="label">Search for Post</label>
+        <div class="control">
+            <input v-model="searchField" class="input" type="searchField">
+        </div>
+        </div>
+        <div class="control">
+            <button @click.prevent="search" class="button is-primary">Search</button>
+        </div>
+
+
     <div v-if='this.$store.state.isLogged' class="center-column" id="feedStyle">
       <!-- Add the feed here v-for every ID -->
       <div v-for="Post in PostIDs" :key="Post.PostID">
@@ -27,18 +38,23 @@ const axios = require('axios');
 export default{
     components:{
         Card,
-        GuestCard
+        GuestCard,
+        
     },
     data(){
         return{
-          PostIDs: axios.get('http://localhost:8081/getLatest').then( response => {
-            //console.log(response.data);
-            this.PostIDs = response.data;
-            //console.log(this.PostIDs)
-          })
+            searchField:null,
+            PostIDs:null
         }
         
       },
+      methods: {
+        async search() {
+            let response = await axios.post('http://localhost:8081/searchPosts', {field: this.searchField })
+            this.PostIDs = response.data;
+            }
+    
+    }
    
 }
 

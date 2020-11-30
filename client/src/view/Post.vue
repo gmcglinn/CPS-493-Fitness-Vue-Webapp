@@ -1,49 +1,31 @@
 <template>
   <div>
-    <div class="center-column" id="feedStyle">
+    <div v-if='this.$store.state.isLogged' class="center-column" id="feedStyle">
       <!-- Add the feed here v-for every ID -->
-      <Card/>
+      
+        
+        <Card :PostID="PostID"></Card>
+      
+    </div>
+     <div v-if='!this.$store.state.isLogged' class="center-column" id="feedStyle">
+      <!-- Add the feed here v-for every ID -->
+      
+        
+        <GuestCard :PostID="PostID"></GuestCard>
+      
     </div>
   </div>
   
 
 
 </template>
-
 <script>
-import Card from '../components/Card'
-
-const axios = require('axios');
-export default{
-    components:{
-        Card
-    },
-    data(){
-        return{
-           username:null,
-           password:null,
-        }
-    },
-    methods: {
-        async getPost() {
-            let response = await axios.post('http://localhost:8081/login', {username: this.username, password: this.password })
-
-            this.$store.commit('login',response.data[0])
-            console.log(response.data);
-            console.log(this.$store.state.isLogged);
-            this.$cookie.setCookie('isLogged', true)
-            this.$cookie.setCookie('user', response.data[0])
-            this.$router.push('/')
-            }
-    
-    }
-}
+// export default defineComponent({
+//   setup(){
+//       const router = useRoute();
+//       const PostID = computed(() => router.params.id);
+//       return {PostID}
+//   }
+// })
+  //This page will eventually be able to grab a unique postID from the url and display just a single post
 </script>
-
-<style>
-#feedStyle {
-        margin: auto;
-        width: 25%
-        
-        }
-</style>
