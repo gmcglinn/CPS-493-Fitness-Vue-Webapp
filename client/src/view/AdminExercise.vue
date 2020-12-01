@@ -50,11 +50,11 @@ export default{
            newName:null,
            isCardio:null,
            currentExercises: 
-                axios.get('http://localhost:8081/getAllExercises').then( response => {
+                axios.get('https://fitapp-fall2020-api.herokuapp.com/getAllExercises').then( response => {
                   this.currentExercises = response.data;
                   console.log(response.data)
               }),
-            ExerciseIDs: axios.get('http://localhost:8081/getAllExercises').then( response => {
+            ExerciseIDs: axios.get('https://fitapp-fall2020-api.herokuapp.com/getAllExercises').then( response => {
             //console.log(response.data);
             this.ExerciseIDs = response.data;
             //console.log(this.PostIDs)
@@ -64,7 +64,7 @@ export default{
     },
     methods: {
         async addExercise() {
-            await axios.post('http://localhost:8081/addExercise', { 
+            await axios.post('https://fitapp-fall2020-api.herokuapp.com/addExercise', { 
                 newName:this.newName, isCardio:this.isCardio })
                 .then(function (response) {
                     console.log(response.data);

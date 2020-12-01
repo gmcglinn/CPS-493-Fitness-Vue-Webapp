@@ -24,7 +24,7 @@ export default{
     },
     data(){
         return{
-            Followed: axios.post('http://localhost:8081/getFollowStatus', {IDUser:this.$cookie.getCookie('user').UserID}).then( response => {
+            Followed: axios.post('https://fitapp-fall2020-api.herokuapp.com/getFollowStatus', {IDUser:this.$cookie.getCookie('user').UserID}).then( response => {
             this.Followed = response.data;
           }),
           PostIDs: null
@@ -34,7 +34,7 @@ export default{
       },
       methods: {
           setPostID(){
-            axios.post('http://localhost:8081/getLatestUser', {IDUser:this.Followed}).then( response => {
+            axios.post('https://fitapp-fall2020-api.herokuapp.com/getLatestUser', {IDUser:this.Followed}).then( response => {
             this.PostIDs = response.data;
             console.log(this.PostIDs)
           })

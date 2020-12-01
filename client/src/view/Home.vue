@@ -31,7 +31,7 @@ export default{
     },
     data(){
         return{
-          PostIDs: axios.get('http://localhost:8081/getLatest').then( response => {
+          PostIDs: axios.get('https://fitapp-fall2020-api.herokuapp.com/getLatest').then( response => {
             //console.log(response.data);
             this.PostIDs = response.data;
             //console.log(this.PostIDs)

@@ -40,7 +40,7 @@ export default{
     },
     methods: {
         async loginUser() {
-            let response = await axios.post('http://localhost:8081/login', {username: this.username, password: this.password })
+            let response = await axios.post('https://fitapp-fall2020-api.herokuapp.com/login', {username: this.username, password: this.password })
             this.$store.commit('login',response.data[0])
             console.log(response.data);
             console.log(this.$store.state.isLogged);

@@ -74,7 +74,7 @@ export default{
            postContent:"",
            inputNum:0,
            currentExercises: 
-                axios.get('http://localhost:8081/getAllExercisesFull').then( response => {
+                axios.get('https://fitapp-fall2020-api.herokuapp.com/getAllExercisesFull').then( response => {
                   this.currentExercises = response.data;
                   
               }),
@@ -108,7 +108,7 @@ export default{
                 this.postContent= this.postContent + this.previousSelect[x] + ' ' + this.postSets[x] + 'x' + this.postReps[x] + ' ' + this.postWeight[x] + 'lb<br>';
             }
             
-            axios.post('http://localhost:8081/postPost', { 
+            axios.post('https://fitapp-fall2020-api.herokuapp.com/postPost', { 
                 CreatorID:this.$cookie.getCookie('user').UserID,Location:this.location,Title:this.title,PostContent:this.postContent,CreatorUsername:this.$cookie.getCookie('user').Username})
                 .then(function (response) {
                     console.log(response.data);

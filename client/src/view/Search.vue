@@ -50,7 +50,7 @@ export default{
       },
       methods: {
         async search() {
-            let response = await axios.post('http://localhost:8081/searchPosts', {field: this.searchField })
+            let response = await axios.post('https://fitapp-fall2020-api.herokuapp.com/searchPosts', {field: this.searchField })
             this.PostIDs = response.data;
             }
     

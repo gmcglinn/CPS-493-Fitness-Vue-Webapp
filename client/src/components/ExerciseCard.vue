@@ -25,7 +25,7 @@ export default{
     props : ['ExerciseID'],
     data(){
         return{
-           SingleExercise: axios.post('http://localhost:8081/getExercise', {ID: this.ExerciseID.UniqueID}).then( response => {
+           SingleExercise: axios.post('https://fitapp-fall2020-api.herokuapp.com/getExercise', {ID: this.ExerciseID.UniqueID}).then( response => {
             this.SingleExercise = response.data[0];
             console.log(response.data);
           }),
@@ -33,7 +33,7 @@ export default{
     },
     methods: {
        removeExercise(){
-            axios.post('http://localhost:8081/removeExercise', { 
+            axios.post('https://fitapp-fall2020-api.herokuapp.com/removeExercise', { 
                  ID: this.SingleExercise.UniqueID})
              this.$forceUpdate(); //holding off on for now, is not updating the page real time when removal is done leaving the card on the screen
        }

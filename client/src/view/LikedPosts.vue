@@ -25,7 +25,7 @@ export default{
     },
     data(){
         return{
-            PostIDs: axios.post('http://localhost:8081/getAllLiked', {IDUser:this.$cookie.getCookie('user').UserID}).then( response => {
+            PostIDs: axios.post('https://fitapp-fall2020-api.herokuapp.com/getAllLiked', {IDUser:this.$cookie.getCookie('user').UserID}).then( response => {
             this.PostIDs = response.data;
           }),
 

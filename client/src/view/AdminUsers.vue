@@ -24,7 +24,7 @@ export default{
     },
     data(){
         return{
-          UserIDs: axios.get('http://localhost:8081/getAllUsers').then( response => {
+          UserIDs: axios.get('https://fitapp-fall2020-api.herokuapp.com/getAllUsers').then( response => {
             //console.log(response.data);
             this.UserIDs = response.data;
             //console.log(this.PostIDs)

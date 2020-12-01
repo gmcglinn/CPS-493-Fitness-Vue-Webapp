@@ -54,7 +54,7 @@ export default{
     },
     methods: {
         async registerUser() {
-            await axios.post('http://localhost:8081/register', { 
+            await axios.post('https://fitapp-fall2020-api.herokuapp.com/register', { 
                 email: this.email, username: this.username, password: this.password })
                 .then(function (response) {
                     console.log(response.data);

@@ -55,7 +55,7 @@ const axios = require('axios');
 export default{
     data(){
         return{
-           user: axios.post('http://localhost:8081/getUser', {UserID: this.$cookie.getCookie('user')}).then( response => {
+           user: axios.post('https://fitapp-fall2020-api.herokuapp.com/getUser', {UserID: this.$cookie.getCookie('user')}).then( response => {
             console.log(response.data);
             this.user = response.data;
           }),
@@ -66,7 +66,7 @@ export default{
     },
     methods: {
         async editUser() {
-            await axios.post('http://localhost:8081/register', { 
+            await axios.post('https://fitapp-fall2020-api.herokuapp.com/register', { 
                 email: this.email, username: this.username, password: this.password })
                 .then(function (response) {
                     console.log(response.data);

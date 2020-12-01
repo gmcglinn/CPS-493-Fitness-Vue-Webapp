@@ -39,11 +39,11 @@ export default{
     data(){
         return{
            Post: this.PostID,
-           SinglePost: axios.post('http://localhost:8081/getPost', {ID: this.PostID.PostID}).then( response => {
+           SinglePost: axios.post('https://fitapp-fall2020-api.herokuapp.com/getPost', {ID: this.PostID.PostID}).then( response => {
             this.SinglePost = response.data[0];
           }),
              liked: 
-                axios.post('http://localhost:8081/getLikedStatus', {IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID}).then( response => {
+                axios.post('https://fitapp-fall2020-api.herokuapp.com/getLikedStatus', {IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID}).then( response => {
                   if(response.data[0]==null) this.liked = "♡";
                   else this.liked = "❤️";
               }),
@@ -54,12 +54,12 @@ export default{
         if(this.$store.state.isLogged){
           if(this.liked=="♡") {
               this.liked = "❤️️";
-              axios.post('http://localhost:8081/likePost', { 
+              axios.post('https://fitapp-fall2020-api.herokuapp.com/likePost', { 
                 IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID })
           }
           else {
             this.liked = "♡"
-            axios.post('http://localhost:8081/unlikePost', { 
+            axios.post('https://fitapp-fall2020-api.herokuapp.com/unlikePost', { 
                 IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID })
           }}
       },

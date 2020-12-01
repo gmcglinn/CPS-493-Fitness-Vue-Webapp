@@ -35,7 +35,7 @@ export default{
     data(){
         return{
            Post: this.PostID,
-           SinglePost: axios.post('http://localhost:8081/getPost', {ID: this.PostID.PostID}).then( response => {
+           SinglePost: axios.post('https://fitapp-fall2020-api.herokuapp.com/getPost', {ID: this.PostID.PostID}).then( response => {
             this.SinglePost = response.data[0];
           })
         }

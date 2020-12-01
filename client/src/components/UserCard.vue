@@ -27,7 +27,7 @@ export default{
     props : ['UserID'],
     data(){
         return{
-           SingleUser: axios.post('http://localhost:8081/getUser', {ID: this.UserID.UserID}).then( response => {
+           SingleUser: axios.post('https://fitapp-fall2020-api.herokuapp.com/getUser', {ID: this.UserID.UserID}).then( response => {
             this.SingleUser = response.data[0];
             console.log(response.data);
           }),
@@ -37,16 +37,16 @@ export default{
         toggleAdmin(){
             console.log(this.SingleUser.Administrator)
           if(this.SingleUser.Administrator==1){
-              axios.post('http://localhost:8081/toggleAdmin', { 
+              axios.post('https://fitapp-fall2020-api.herokuapp.com/toggleAdmin', { 
                 IDUser: this.SingleUser.UserID, x:0})
           }
           else {
-            axios.post('http://localhost:8081/toggleAdmin', { 
+            axios.post('https://fitapp-fall2020-api.herokuapp.com/toggleAdmin', { 
                 IDUser: this.SingleUser.UserID, x:1})
           }
       },
       removeUser(){
-           axios.post('http://localhost:8081/removeUser', { 
+           axios.post('https://fitapp-fall2020-api.herokuapp.com/removeUser', { 
                 IDUser: this.SingleUser.UserID})
             this.$forceUpdate(); //holding off on for now, is not updating the page real time when removal is done leaving the card on the screen (same for upgrading to admin)
       }
