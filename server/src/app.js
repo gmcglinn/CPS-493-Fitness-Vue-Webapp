@@ -20,8 +20,7 @@ connection.connect()
 
 module.exports = connection;
 
-app.use(express.json());
-app.use(cors())
+app.use(express.json()).use(cors());
 
 app.post('/register', (req, res) => {   
     connection.query(`INSERT INTO UserProfile (EmailAddress, Password, Username)

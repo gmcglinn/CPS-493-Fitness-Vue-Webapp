@@ -63,13 +63,13 @@ export default{
                 IDPost: this.PostID.PostID,IDUser:this.$cookie.getCookie('user').UserID })
           }}
       },
-      copyPostLink(){
-           var copyText = "http://localhost:8080/"+ this.SinglePost.PostID;
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-            document.execCommand("copy");
-            alert("Copied post link");
-      }
+    //   copyPostLink(){
+    //        var copyText = "http://localhost:8080/"+ this.SinglePost.PostID;
+    //         copyText.select();
+    //         copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+    //         document.execCommand("copy");
+    //         alert("Copied post link");
+    //   }
     }
 }
 </script>
