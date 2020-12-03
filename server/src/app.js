@@ -105,11 +105,21 @@ app.post('/unlikePost', (req, res) => {
     });
 })
 app.post('/searchPosts', (req, res) => {
-    connection.query(`SELECT * FROM Post WHERE Title LIKE '%${req.body.field}%' OR CreatorUsername LIKE '%${req.body.field}%'`, function (error, results, fields) {
+    connection.query(`SELECT * FROM Post WHERE Title LIKE '%${req.body.field}%' OR CreatorUsername LIKE '%${req.body.field}%' LIMIT 15`, function (error, results, fields) {
     if (error) throw error;
     res.send(results)
     });
 })
+
+
+app.post('/searchPostsSugg', (req, res) => {
+    connection.query(`SELECT Title FROM Post WHERE Title LIKE '%${req.body.field}%' OR CreatorUsername LIKE '%${req.body.field}%' LIMIT 5`, function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+    });
+})
+
+
 
 app.post('/getFollowStatus', (req, res) => {
     connection.query(`SELECT Followed FROM UserRelation WHERE Follower = '${req.body.IDUser}'`, function (error, results, fields) {

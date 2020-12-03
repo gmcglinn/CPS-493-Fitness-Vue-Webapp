@@ -17,6 +17,7 @@
     "vue": "^3.0.0",
     "vue-cookie-next": "^1.0.3",
     "vue-router": "^4.0.0-rc.3",
+    "vue3-autocomplete": "^1.0.0",
     "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {
