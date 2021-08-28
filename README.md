@@ -1,24 +1,12 @@
 # fitapp-fall2020
 
-## Project setup
-```
-npm install
-```
+Project Class for Web Programming class Fall 2020
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Tasked with creating a Vue 3 project that mimicked functionality and form of Instagram but make it pertain to working out and fitness.
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+This is split into a client and serverside, meant to be separately hosted on heroku by the end of the semester. As of 8/28/21 the heroku website is still up.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Final exam for this class was to create the real time updating search bar that would populate with queries from the sql db
+
+https://fitapp-fall2020.herokuapp.com/
