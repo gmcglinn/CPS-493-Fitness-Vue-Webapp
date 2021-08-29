@@ -9,4 +9,8 @@ This is split into a client and serverside, meant to be separately hosted on her
 
 Final exam for this class was to create the real time updating search bar that would populate with queries from the sql db
 
+
+
+
+deprecated link for application; trial period of heroku exhausted
 https://fitapp-fall2020.herokuapp.com/
